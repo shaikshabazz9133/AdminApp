@@ -1,0 +1,80 @@
+import { Employee } from "./types";
+
+export const mockEmployees: Employee[] = [
+  {
+    id: "EMP001",
+    name: "Mahesh Babu",
+    employeeId: "NMC-EMP-001",
+    username: "mahesh.babu",
+    phone: "9988776655",
+    role: "field_worker",
+    wardNumber: 12,
+    department: "Roads & Infrastructure",
+    isActive: true,
+    tasksAssigned: 12,
+    tasksCompleted: 9,
+    joinedAt: "2022-03-15T09:00:00.000Z",
+  },
+  {
+    id: "EMP002",
+    name: "Venkata Rao",
+    employeeId: "NMC-EMP-002",
+    username: "venkata.rao",
+    phone: "9977665544",
+    role: "field_worker",
+    wardNumber: 7,
+    department: "Sanitation",
+    isActive: true,
+    tasksAssigned: 8,
+    tasksCompleted: 7,
+    joinedAt: "2021-11-01T09:00:00.000Z",
+  },
+  {
+    id: "EMP003",
+    name: "Srinivas Murthy",
+    employeeId: "NMC-EMP-003",
+    username: "srinivas.murthy",
+    phone: "9966554433",
+    role: "supervisor",
+    wardNumber: 23,
+    department: "Water & Drainage",
+    isActive: true,
+    tasksAssigned: 15,
+    tasksCompleted: 14,
+    joinedAt: "2020-06-20T09:00:00.000Z",
+  },
+  {
+    id: "EMP004",
+    name: "Padmavathi S",
+    employeeId: "NMC-EMP-004",
+    username: "padmavathi.s",
+    phone: "9955443322",
+    role: "inspector",
+    wardNumber: 12,
+    department: "Electrical",
+    isActive: true,
+    tasksAssigned: 10,
+    tasksCompleted: 8,
+    joinedAt: "2023-01-10T09:00:00.000Z",
+  },
+  {
+    id: "EMP005",
+    name: "Ranga Reddy",
+    employeeId: "NMC-EMP-005",
+    username: "ranga.reddy",
+    phone: "9944332211",
+    role: "field_worker",
+    wardNumber: 5,
+    department: "Sanitation",
+    isActive: false,
+    tasksAssigned: 6,
+    tasksCompleted: 4,
+    joinedAt: "2022-08-14T09:00:00.000Z",
+  },
+];
+
+export const getEmployeeById = (id: string): Employee | undefined =>
+  mockEmployees.find((e) => e.id === id);
+
+export const getActiveEmployees = (): Employee[] =>
+  mockEmployees.filter((e) => e.isActive);

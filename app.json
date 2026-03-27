@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "MNC Admin",
+    "slug": "mnc-admin-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mnc.adminapp"
+    },
+    "android": {
+      "package": "com.mnc.adminapp"
+    },
+    "plugins": ["expo-font"]
+  }
+}
