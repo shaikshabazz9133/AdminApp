@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   StatusBar,
   RefreshControl,
+  Image,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import Animated, {
   useSharedValue,
@@ -29,22 +29,84 @@ interface StatCardProps {
   icon: keyof typeof Ionicons.glyphMap;
   label: string;
   value: number | string;
-  gradient: [string, string];
+  color: string;
 }
 
-const StatCard: React.FC<StatCardProps> = ({
-  icon,
-  label,
-  value,
-  gradient,
-}) => (
-  <LinearGradient colors={gradient} style={styles.statCard}>
+const StatCard: React.FC<StatCardProps> = ({ icon, label, value, color }) => (
+  <View style={[styles.statCard, { backgroundColor: color }]}>
     <View style={styles.statIcon}>
       <Ionicons name={icon} size={26} color="#fff" />
     </View>
     <Text style={styles.statValue}>{value}</Text>
     <Text style={styles.statLabel}>{label}</Text>
-  </LinearGradient>
+  </View>
+);
+
+// Government Leaders Card — AP Government
+const GovernmentLeadersCard: React.FC = () => (
+  <View style={styles.govtCard}>
+    <View style={styles.govtCardHeader}>
+      <View style={styles.tdpPillGovt}>
+        <Text style={styles.tdpPillGovtText}>TDP</Text>
+      </View>
+      <Text style={styles.govtCardTitle}>Government of Andhra Pradesh</Text>
+    </View>
+    <View style={styles.govtLeadersRow}>
+      <View style={styles.govtLeaderItem}>
+        <Image
+          source={require("../../../assets/images/cm.png")}
+          style={styles.govtLeaderPhoto}
+          resizeMode="cover"
+        />
+        <View style={styles.govtRolePill}>
+          <Text style={styles.govtRolePillText}>CM</Text>
+        </View>
+        <Text style={styles.govtLeaderFullName}>N. Chandrababu Naidu</Text>
+        <Text style={styles.govtLeaderFullRole}>Chief Minister</Text>
+      </View>
+      <View style={styles.govtLeaderDivider} />
+      <View style={styles.govtLeaderItem}>
+        <Image
+          source={require("../../../assets/images/deputy_cm.png")}
+          style={styles.govtLeaderPhoto}
+          resizeMode="cover"
+        />
+        <View
+          style={[styles.govtRolePill, { backgroundColor: Colors.secondary }]}
+        >
+          <Text style={styles.govtRolePillText}>Dy. CM</Text>
+        </View>
+        <Text style={styles.govtLeaderFullName}>Pawan Kalyan</Text>
+        <Text style={styles.govtLeaderFullRole}>Deputy Chief Minister</Text>
+      </View>
+    </View>
+  </View>
+);
+
+// Corporator Card — Ward Representative
+const CorporatorBanner: React.FC = () => (
+  <View style={styles.corpBanner}>
+    <View style={styles.corpAccentBar} />
+    <Image
+      source={require("../../../assets/images/corporator.png")}
+      style={styles.corpImg}
+      resizeMode="cover"
+    />
+    <View style={styles.corpInfo}>
+      <View style={styles.corpBadge}>
+        <Ionicons name="location" size={11} color={Colors.primaryDark} />
+        <Text style={styles.corpBadgeText}>Ward 47 Corporator</Text>
+      </View>
+      <Text style={styles.corpName}>Ramakrishna</Text>
+      <Text style={styles.corpTitle}>47th Ward Corporator</Text>
+      <View style={styles.corpPartyRow}>
+        <View style={styles.tdpPill}>
+          <Text style={styles.tdpPillText}>TDP</Text>
+        </View>
+        <Text style={styles.corpParty}>Telugu Desam Party</Text>
+      </View>
+    </View>
+  </View>
 );
 
 const ISSUE_ICONS: Record<string, keyof typeof Ionicons.glyphMap> = {
@@ -113,12 +175,8 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
-      />
-      <LinearGradient colors={Colors.gradient.admin} style={styles.header}>
+      <StatusBar barStyle="dark-content" backgroundColor={Colors.primary} />
+      <View style={styles.header}>
         <Animated.View style={[styles.headerContent, fadeStyle]}>
           <View style={styles.headerTop}>
             <View>
@@ -130,7 +188,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ navigation }) => {
               style={styles.notifBtn}
               onPress={() => navigation.navigate("Notifications")}
             >
-              <Ionicons name="notifications" size={26} color="#fff" />
+              <Ionicons name="notifications" size={26} color={Colors.dark} />
               {unreadCount > 0 && (
                 <View style={styles.badge}>
                   <Text style={styles.badgeText}>{unreadCount}</Text>
@@ -140,7 +198,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ navigation }) => {
           </View>
         </Animated.View>
         <View style={styles.wave} />
-      </LinearGradient>
+      </View>
 
       <ScrollView
         contentContainerStyle={styles.scroll}
@@ -153,43 +211,49 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ navigation }) => {
           />
         }
       >
+        {/* Ward Corporator */}
+        <CorporatorBanner />
+
+        {/* AP Government Leaders */}
+        <GovernmentLeadersCard />
+
         {/* Stats Grid */}
         <View style={styles.statsGrid}>
           <StatCard
             icon="document-text"
             label="Total"
             value={stats.total}
-            gradient={Colors.gradient.admin}
+            color="#1A3654"
           />
           <StatCard
             icon="time"
             label="Pending"
             value={stats.pending}
-            gradient={Colors.gradient.warning}
+            color="#D97706"
           />
           <StatCard
             icon="construct"
             label="In Progress"
             value={stats.inProgress}
-            gradient={Colors.gradient.primary}
+            color="#1A56DB"
           />
           <StatCard
             icon="checkmark-circle"
             label="Completed"
             value={stats.completed}
-            gradient={Colors.gradient.success}
+            color="#10B981"
           />
           <StatCard
             icon="warning"
             label="Major Issues"
             value={stats.major}
-            gradient={Colors.gradient.error}
+            color="#EF4444"
           />
           <StatCard
             icon="people"
             label="Active Staff"
             value={stats.activeEmployees}
-            gradient={["#8B5CF6", "#6D28D9"]}
+            color="#7C3AED"
           />
         </View>
 
@@ -291,8 +355,93 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
-  header: { paddingTop: 52, paddingBottom: 52 },
-  headerContent: { paddingHorizontal: Spacing.lg },
+  header: {
+    backgroundColor: Colors.primary,
+    paddingBottom: 52,
+    paddingTop: 44,
+  },
+  // ── Government Leaders Card ───────────────────────────────────
+  govtCard: {
+    backgroundColor: Colors.dark,
+    borderRadius: BorderRadius.xl,
+    padding: Spacing.md,
+    marginBottom: Spacing.md,
+    shadowColor: "rgba(0,0,0,0.25)",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  govtCardHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginBottom: Spacing.md,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255,255,255,0.12)",
+  },
+  tdpPillGovt: {
+    backgroundColor: Colors.primary,
+    borderRadius: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+  },
+  tdpPillGovtText: {
+    fontSize: 11,
+    fontWeight: "900",
+    color: Colors.dark,
+    letterSpacing: 1,
+  },
+  govtCardTitle: {
+    fontSize: FontSize.sm,
+    fontWeight: "700",
+    color: "#FFFFFF",
+    flex: 1,
+  },
+  govtLeadersRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  govtLeaderItem: { flex: 1, alignItems: "center", gap: 6 },
+  govtLeaderPhoto: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth: 3,
+    borderColor: Colors.primary,
+  },
+  govtRolePill: {
+    backgroundColor: Colors.primary,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+  },
+  govtRolePillText: {
+    fontSize: 11,
+    fontWeight: "900",
+    color: Colors.dark,
+  },
+  govtLeaderFullName: {
+    fontSize: FontSize.sm,
+    fontWeight: "700",
+    color: "#FFFFFF",
+    textAlign: "center",
+  },
+  govtLeaderFullRole: {
+    fontSize: FontSize.xs,
+    color: "rgba(255,255,255,0.6)",
+    textAlign: "center",
+  },
+  govtLeaderDivider: {
+    width: 1,
+    height: 90,
+    backgroundColor: "rgba(255,255,255,0.15)",
+    marginHorizontal: Spacing.sm,
+  },
+  // ── Header ────────────────────────────────────────────────────
+  headerContent: { paddingHorizontal: Spacing.lg, paddingTop: Spacing.md },
   headerTop: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -300,16 +449,17 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontSize: FontSize.sm,
-    color: "rgba(255,255,255,0.8)",
+    color: "#8B6914",
     marginBottom: 2,
+    fontWeight: "600",
   },
   adminName: {
     fontSize: FontSize.xxl,
     fontWeight: "800",
-    color: "#fff",
+    color: Colors.dark,
     marginBottom: 3,
   },
-  designation: { fontSize: FontSize.xs, color: "rgba(255,255,255,0.7)" },
+  designation: { fontSize: FontSize.xs, color: Colors.textSecondary },
   notifBtn: { padding: 4, position: "relative" },
   badge: {
     position: "absolute",
@@ -334,6 +484,55 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
   },
   scroll: { padding: Spacing.md },
+  // ── Corporator Banner ─────────────────────────────────────────
+  corpBanner: {
+    flexDirection: "row",
+    backgroundColor: Colors.surface,
+    borderRadius: BorderRadius.xl,
+    marginBottom: Spacing.md,
+    overflow: "hidden",
+    shadowColor: "rgba(197,138,0,0.2)",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    elevation: 4,
+    borderWidth: 1.5,
+    borderColor: Colors.border,
+  },
+  corpAccentBar: { width: 6, backgroundColor: Colors.primary },
+  corpImg: { width: 100, height: 120 },
+  corpInfo: { flex: 1, padding: 12, justifyContent: "center", gap: 4 },
+  corpBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    backgroundColor: Colors.primaryLight,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    alignSelf: "flex-start",
+  },
+  corpBadgeText: { fontSize: 10, fontWeight: "700", color: Colors.primaryDark },
+  corpName: { fontSize: FontSize.xl, fontWeight: "900", color: Colors.text },
+  corpTitle: { fontSize: FontSize.sm, color: Colors.textSecondary },
+  corpPartyRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginTop: 2,
+  },
+  tdpPill: {
+    backgroundColor: Colors.primary,
+    borderRadius: 6,
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+  },
+  tdpPillText: { fontSize: 10, fontWeight: "900", color: Colors.dark },
+  corpParty: {
+    fontSize: FontSize.xs,
+    fontWeight: "700",
+    color: Colors.primaryDark,
+  },
   statsGrid: {
     flexDirection: "row",
     flexWrap: "wrap",

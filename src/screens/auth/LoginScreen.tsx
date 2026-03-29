@@ -10,8 +10,8 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
+  Image,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import Animated, {
   useSharedValue,
@@ -54,23 +54,26 @@ const LoginScreen: React.FC = () => {
       style={styles.wrapper}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
-      />
+      <StatusBar barStyle="dark-content" backgroundColor={Colors.primary} />
       <ScrollView
         contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}
       >
-        <LinearGradient colors={Colors.gradient.admin} style={styles.hero}>
-          <View style={styles.heroIcon}>
-            <Text style={{ fontSize: 40 }}>🏛️</Text>
+        {/* Yellow Hero with Corporator */}
+        <View style={styles.hero}>
+          <View style={styles.corpImgWrapper}>
+            <Image
+              source={require("../../../assets/images/corporator.png")}
+              style={styles.corpImg}
+              resizeMode="cover"
+            />
           </View>
           <Text style={styles.heroTitle}>Admin Portal</Text>
+          <Text style={styles.heroName}>Ramakrishna</Text>
+          <Text style={styles.heroRole}>47th Ward Corporator • TDP</Text>
           <Text style={styles.heroSub}>Nellore Municipal Corporation</Text>
           <View style={styles.wave} />
-        </LinearGradient>
+        </View>
 
         <View style={styles.form}>
           <Text style={styles.formTitle}>Sign In</Text>
@@ -140,10 +143,7 @@ const LoginScreen: React.FC = () => {
               disabled={isLoading}
               style={styles.loginBtnWrapper}
             >
-              <LinearGradient
-                colors={Colors.gradient.admin}
-                style={styles.loginBtn}
-              >
+              <View style={styles.loginBtn}>
                 {isLoading ? (
                   <ActivityIndicator color="#fff" />
                 ) : (
@@ -152,7 +152,7 @@ const LoginScreen: React.FC = () => {
                     <Text style={styles.loginBtnText}>Sign In Securely</Text>
                   </>
                 )}
-              </LinearGradient>
+              </View>
             </TouchableOpacity>
           </Animated.View>
 
@@ -196,18 +196,39 @@ const LoginScreen: React.FC = () => {
 const styles = StyleSheet.create({
   wrapper: { flex: 1, backgroundColor: Colors.background },
   scroll: { flexGrow: 1 },
-  hero: { paddingTop: 64, paddingBottom: 72, alignItems: "center", gap: 8 },
-  heroIcon: {
-    width: 80,
-    height: 80,
-    borderRadius: 24,
-    backgroundColor: "rgba(255,255,255,0.2)",
-    justifyContent: "center",
+  // ── Hero ───────────────────────────────────────────────────────
+  hero: {
+    backgroundColor: Colors.primary,
+    paddingTop: 64,
+    paddingBottom: 72,
     alignItems: "center",
-    marginBottom: 8,
+    gap: 4,
   },
-  heroTitle: { fontSize: FontSize.xxxl, fontWeight: "900", color: "#fff" },
-  heroSub: { fontSize: FontSize.md, color: "rgba(255,255,255,0.8)" },
+  corpImgWrapper: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    overflow: "hidden",
+    borderWidth: 4,
+    borderColor: Colors.dark,
+    marginBottom: 10,
+    shadowColor: "rgba(0,0,0,0.3)",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  corpImg: { width: "100%", height: "100%" },
+  heroTitle: {
+    fontSize: FontSize.xs,
+    fontWeight: "700",
+    color: "#7A5200",
+    letterSpacing: 2,
+    textTransform: "uppercase",
+  },
+  heroName: { fontSize: FontSize.xxxl, fontWeight: "900", color: Colors.dark },
+  heroRole: { fontSize: FontSize.sm, fontWeight: "700", color: "#7A5200" },
+  heroSub: { fontSize: FontSize.sm, color: Colors.textSecondary, marginTop: 2 },
   wave: {
     position: "absolute",
     bottom: 0,
@@ -265,11 +286,13 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.lg,
   },
   loginBtn: {
+    backgroundColor: Colors.secondary,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     gap: 10,
     paddingVertical: 16,
+    borderRadius: BorderRadius.lg,
   },
   loginBtnText: { fontSize: FontSize.lg, fontWeight: "800", color: "#fff" },
   demoSection: { gap: 10 },

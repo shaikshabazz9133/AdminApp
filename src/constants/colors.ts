@@ -1,40 +1,41 @@
 export const Colors = {
-  primary: "#2563EB",
-  primaryDark: "#1D4ED8",
-  primaryLight: "#EFF6FF",
-  secondary: "#10B981",
-  secondaryLight: "#ECFDF5",
-  accent: "#8B5CF6",
-  accentLight: "#EDE9FE",
+  // TDP Party Colors — AP Government
+  primary: "#F5C518", // TDP Golden Yellow
+  primaryDark: "#C58A00", // Dark Gold
+  primaryLight: "#FFF8DC", // Corn Silk
+  secondary: "#1A3654", // TDP Navy Blue
+  secondaryLight: "#E8F0FE",
+  accent: "#D97706",
+  accentLight: "#FEF3C7",
   error: "#EF4444",
   errorLight: "#FEF2F2",
   warning: "#F59E0B",
   warningLight: "#FFFBEB",
 
-  background: "#F8FAFC",
+  background: "#FFFDF5",
   surface: "#FFFFFF",
-  surfaceElevated: "#F1F5F9",
-  dark: "#1E293B",
+  surfaceElevated: "#FFF8DC",
+  dark: "#1A2535",
 
-  text: "#1E293B",
+  text: "#1A2535",
   textSecondary: "#64748B",
   textTertiary: "#94A3B8",
   textInverse: "#FFFFFF",
 
-  border: "#E2E8F0",
-  divider: "#F1F5F9",
+  border: "#F0E6B0",
+  divider: "#FFF3B0",
   cardBg: "#FFFFFF",
 
   status: {
     submitted: "#64748B",
-    assigned: "#F59E0B",
-    in_progress: "#2563EB",
+    assigned: "#D97706",
+    in_progress: "#1A56DB",
     completed: "#10B981",
     cancelled: "#EF4444",
   },
   statusBg: {
     submitted: "#F1F5F9",
-    assigned: "#FFFBEB",
+    assigned: "#FEF3C7",
     in_progress: "#EFF6FF",
     completed: "#ECFDF5",
     cancelled: "#FEF2F2",
@@ -42,32 +43,32 @@ export const Colors = {
 
   priority: {
     high: "#EF4444",
-    medium: "#F59E0B",
+    medium: "#D97706",
     low: "#10B981",
   },
   priorityBg: {
     high: "#FEF2F2",
-    medium: "#FFFBEB",
+    medium: "#FEF3C7",
     low: "#ECFDF5",
   },
 
   gradient: {
-    primary: ["#2563EB", "#1D4ED8"] as [string, string],
-    hero: ["#1E293B", "#334155"] as [string, string],
-    admin: ["#2563EB", "#7C3AED"] as [string, string],
+    primary: ["#FFE566", "#F5C518"] as [string, string],
+    hero: ["#F5C518", "#C58A00"] as [string, string],
+    admin: ["#F5C518", "#C58A00"] as [string, string],
     success: ["#10B981", "#059669"] as [string, string],
-    warning: ["#F59E0B", "#D97706"] as [string, string],
+    warning: ["#D97706", "#B45309"] as [string, string],
     error: ["#EF4444", "#DC2626"] as [string, string],
   },
 
   chart: [
-    "#2563EB",
+    "#F5C518",
     "#10B981",
-    "#F59E0B",
+    "#1A56DB",
     "#EF4444",
-    "#8B5CF6",
+    "#D97706",
     "#0EA5E9",
-    "#EC4899",
+    "#8B5CF6",
   ],
 };
 
