@@ -13,6 +13,10 @@
     "android": {
       "package": "com.mnc.adminapp"
     },
+    "web": {
+      "bundler": "metro",
+      "output": "spa"
+    },
     "plugins": ["expo-font"]
   }
 }
