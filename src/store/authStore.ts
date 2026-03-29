@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { AdminUser } from "../data/types";
 import { getAdminByUsername } from "../data/mockAdmins";
+import { navigationRef } from "../navigation/navigationRef";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -31,5 +32,10 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ isAuthenticated: true, admin, isLoading: false, error: null });
   },
 
-  logout: () => set({ isAuthenticated: false, admin: null }),
+  logout: () => {
+    set({ isAuthenticated: false, admin: null, error: null });
+    if (navigationRef.isReady()) {
+      navigationRef.reset({ index: 0, routes: [{ name: "Auth" }] });
+    }
+  },
 }));

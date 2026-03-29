@@ -12,6 +12,7 @@ import {
   Platform,
   Image,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Animated, {
   useSharedValue,
@@ -50,6 +51,7 @@ const LoginScreen: React.FC = () => {
   ];
 
   return (
+    <SafeAreaView style={styles.safeArea} edges={["top"]}>
     <KeyboardAvoidingView
       style={styles.wrapper}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -190,16 +192,18 @@ const LoginScreen: React.FC = () => {
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: { flex: 1, backgroundColor: Colors.primary },
   wrapper: { flex: 1, backgroundColor: Colors.background },
   scroll: { flexGrow: 1 },
   // ── Hero ───────────────────────────────────────────────────────
   hero: {
     backgroundColor: Colors.primary,
-    paddingTop: 64,
+    paddingTop: 24,
     paddingBottom: 72,
     alignItems: "center",
     gap: 4,
@@ -239,7 +243,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
   },
-  form: { flex: 1, padding: Spacing.lg },
+  form: { flex: 1, padding: Spacing.lg, maxWidth: 500, width: "100%", alignSelf: "center" },
   formTitle: {
     fontSize: FontSize.xxl,
     fontWeight: "800",
